@@ -1,4 +1,3 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # Dining-philosophers-problem
 
 Refer link for problem of [Dining-philosophers-problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem)
