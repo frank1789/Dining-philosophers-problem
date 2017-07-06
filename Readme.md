@@ -23,8 +23,8 @@ DEBUG = -g
 
 ifeq ($(UNAME_S),Linux)
     CFLAGS += -std=gnu++11 -O2
-		# option for multithreading
-		CFLAGS += -pthread
+    # option for multithreading
+    CFLAGS += -pthread
 else
   CFLAGS += -std=c++11 -stdlib=libc++ -Ofast
 endif
