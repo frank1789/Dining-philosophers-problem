@@ -7,21 +7,37 @@ Realized with thread C ++ and STL 11
 ### To compile: 
 
 ```makefile
-Dining-philosophers: prog.o philo.o fork.o 
-	g++ --std=c++11 -pthread prog.o philo.o firk.o -lm -o Dining Philosopher
-  
-  # main program
-  prog.o: main.cpp TimeMeter.hh
-    g++ --std=c++11 -pthread main.cpp
-  
-  # class philosopher
-  philo.o: Philo.hpp Philo.cpp
-    g++ --std=c++11 -pthread Philo.cpp
-  
-  # class fork
-  fork.o: fork.hpp fork.cpp
-    g++ --std=c++11 -pthread fork.cpp
-	
+# Determine the platform
+UNAME_S := $(shell uname -s)
+
+# CC
+ifeq ($(UNAME_S),Darwin)
+  CC := clang++ -arch x86_64
+else
+  CC := g++
+endif
+
+CFLAGS := -Wall
+# active degug information
+DEBUG = -g
+
+ifeq ($(UNAME_S),Linux)
+    CFLAGS += -std=gnu++11 -O2
+		# option for multithreading
+		CFLAGS += -pthread
+else
+  CFLAGS += -std=c++11 -stdlib=libc++ -Ofast
+endif
+
+# Determine the platform
+UNAME_S := $(shell uname -s)
+
+# Targets
+EXECUTABLE := DiningPhilosopher
+
+all: main.cpp TimeMeter.hh Philo.hpp Philo.cpp fork.hpp fork.cpp
+	$(CC) $(CFLAGS) main.cpp Philo.cpp fork.cpp -o $(EXECUTABLE)
+
 clean:
 	rm -f *.o
 ```
