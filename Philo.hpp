@@ -18,7 +18,6 @@ enum Philosopher_STATE {THINK, EAT, SLEEP};
 class Philosopher
 {
 private:
-    int _number_philosopher;
     int _num_eat;
     int _num_sleep;
     int _num_think;
