@@ -8,18 +8,13 @@
 
 #include "fork.hpp"
 
-Fork::Fork(int p_fork)
-{
-    _fork = p_fork;
-    _forkState = FREE;
+Fork::Fork(unsigned int numfork) {
+  m_fork = numfork;
+  m_state = forkstate::FREE;
 }
 
-void Fork::setForkState()
-{
-    _forkState = INUSE;
-}
+void Fork::acquireFork() { m_state = forkstate::INUSE; }
 
-void Fork::relaseFork()
-{
-    _forkState = FREE;
-}
+void Fork::relaseFork() { m_state = forkstate::FREE; }
+
+forkstate Fork::getStateFork() { return m_state; }

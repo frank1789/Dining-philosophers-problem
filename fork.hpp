@@ -6,26 +6,22 @@
 //  Copyright © 2016 Francesco Argentieri. All rights reserved.
 //
 
-#ifndef fork_hpp
-#define fork_hpp
+#ifndef FORK_HPP
+#define FORK_HPP
 
-#include <stdio.h>
-#include <iostream>
+enum class forkstate { FREE, INUSE };
 
-enum Fork_STATE {FREE, INUSE};
+class Fork {
+ public:
+  Fork(unsigned int numfork);
+  void acquireFork();
+  void getFork();
+  void relaseFork();
+  forkstate getStateFork();
 
-class Fork
-{
-public:
-    Fork(int p_fork);
-    void setForkState();
-    void getFork();
-    void relaseFork();
-    Fork_STATE getStateFork()   {return _forkState;};
-
-private:
-    int _fork;
-    Fork_STATE _forkState;
+ private:
+  int m_fork;
+  forkstate m_state;
 };
 
-#endif /* fork_hpp */
+#endif  // FORK_HPP
