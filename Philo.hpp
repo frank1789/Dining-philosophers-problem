@@ -33,7 +33,7 @@ public:
     void ReleaseLeftFork(Fork *fork);
     void ReleaseRightFork(Fork *fork);
     int  getNumber(int num);
-    private:
+private:
     unsigned int m_num_eat;
     unsigned int m_num_sleep;
     unsigned int m_num_think;

@@ -9,7 +9,7 @@
 #include "Philo.hpp"
 #include "fork.hpp"
 
-Philosopher::Philosopher() : m_num_think(0), m_num_sleep(0), m_num_eat(0) {
+Philosopher::Philosopher() : m_num_eat(0), m_num_sleep(0), m_num_think(0) {
   m_state = action::SLEEP;
   m_allFork = false;
 }
