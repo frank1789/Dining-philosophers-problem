@@ -9,65 +9,56 @@
 #include "Philo.hpp"
 #include "fork.hpp"
 
-Philosopher::Philosopher()
-{
-    _state_philosopher = SLEEP;
-    _num_think = 0;
-    _num_sleep = 0;
-    _num_eat   = 0;
-    _allFork   = false;
+Philosopher::Philosopher() : m_num_think(0), m_num_sleep(0), m_num_eat(0) {
+  m_state = action::SLEEP;
+  m_allFork = false;
 }
 
-void Philosopher::thinking()
-{
-    //change status of philosophe
-    _state_philosopher = THINK;
-    //update the action
-    _num_think++;
+void Philosopher::thinking() {
+  // change status of philosophe
+  m_state = action::THINK;
+  // update the action
+  m_num_think++;
 }
 
-void Philosopher::eating()
-{
-    //change status of philosophe
-    _state_philosopher = EAT;
-    //update the action
-    _num_eat++;
+void Philosopher::eating() {
+  // change status of philosophe
+  m_state = action::EAT;
+  // update the action
+  m_num_eat++;
 }
 
-void Philosopher::sleeping()
-{
-    //change status of philosophe
-    _state_philosopher = SLEEP;
-    //update the action
-    _num_sleep++;
+void Philosopher::sleeping() {
+  // change status of philosophe
+  m_state = action::SLEEP;
+  // update the action
+  m_num_sleep++;
 }
 
-Philosopher_STATE Philosopher::GetPhilosopherState() {return _state_philosopher;}
+action Philosopher::GetPhilosopherState() { return m_state; }
 
-int Philosopher::getNumber(int p_n) {return p_n;}
+int Philosopher::getNumber(int num) { return num; }
 
-void Philosopher::SetLeftFork(Fork *fork)
-{
-    fork->setForkState();
-}
-void Philosopher::SetRightFork(Fork *fork)
-{
-    fork->setForkState();
-}
-void Philosopher::ReleaseLeftFork(Fork *fork)
-{
-    fork->relaseFork();
-}
-void Philosopher::ReleaseRightFork(Fork *fork)
-{
-    fork->relaseFork();
-}
+void Philosopher::SetLeftFork(Fork *fork) { fork->acquireFork(); }
 
-void Philosopher::setCanEat(Fork *forkSX, Fork *forkDX)
-{
-    if(forkSX->getStateFork() == INUSE && forkDX->getStateFork() == INUSE) _allFork = true;
-    else _allFork = false;
+void Philosopher::SetRightFork(Fork *fork) { fork->acquireFork(); }
+
+void Philosopher::ReleaseLeftFork(Fork *fork) { fork->relaseFork(); }
+
+void Philosopher::ReleaseRightFork(Fork *fork) { fork->relaseFork(); }
+
+void Philosopher::setCanEat(Fork *forkSX, Fork *forkDX) {
+  if (forkSX->getStateFork() == forkstate::INUSE &&
+      forkDX->getStateFork() == forkstate::INUSE)
+    m_allFork = true;
+  else
+    m_allFork = false;
 }
 
-bool Philosopher::getCanEat() {return _allFork;}
+bool Philosopher::getCanEat() { return m_allFork; }
 
+unsigned int Philosopher::getEat() { return m_num_eat; }
+
+unsigned int Philosopher::getSleep() { return m_num_sleep; }
+
+unsigned int Philosopher::getThink() { return m_num_think; }

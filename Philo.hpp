@@ -6,34 +6,25 @@
 //  Copyright © 2016 Francesco Argentieri. All rights reserved.
 //
 
-#ifndef Philo_hpp
-#define Philo_hpp
+#ifndef PHILOSOPHER_HPP
+#define PHILOSOPHER_HPP
 
-#include <stdio.h>
-#include <iostream>
 #include "fork.hpp"
 
-enum Philosopher_STATE {THINK, EAT, SLEEP};
+enum class action {THINK, EAT, SLEEP};
 
 class Philosopher
 {
-private:
-    int _num_eat;
-    int _num_sleep;
-    int _num_think;
-    bool _allFork;
-    Philosopher_STATE _state_philosopher;
-    
 public:
     Philosopher();
     //Philosopher activity
     void thinking();
     void eating();
     void sleeping();
-    Philosopher_STATE GetPhilosopherState();
-    int getEat() {return _num_eat;};
-    int getSleep() {return _num_sleep;};
-    int getThink() {return _num_think;};
+    action GetPhilosopherState();
+    unsigned int getEat();
+    unsigned int getSleep();
+    unsigned int getThink();
     void setCanEat(Fork *forkSX, Fork *forkDX);
     bool getCanEat();
     //fork interaction
@@ -41,7 +32,13 @@ public:
     void SetRightFork(Fork *fork);
     void ReleaseLeftFork(Fork *fork);
     void ReleaseRightFork(Fork *fork);
-    int  getNumber(int p_n);
+    int  getNumber(int num);
+    private:
+    unsigned int m_num_eat;
+    unsigned int m_num_sleep;
+    unsigned int m_num_think;
+    bool m_allFork;
+    action m_state;
 };
 
-#endif /* Philo_hpp */
+#endif // PHILOSOPHER_HPP
