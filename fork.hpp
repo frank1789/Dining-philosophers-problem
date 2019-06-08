@@ -13,14 +13,13 @@ enum class forkstate { FREE, INUSE };
 
 class Fork {
  public:
-  Fork(unsigned int numfork);
+  explicit Fork();
   void acquireFork();
   void getFork();
-  void relaseFork();
+  void releaseFork();
   forkstate getStateFork();
 
  private:
-  int m_fork;
   forkstate m_state;
 };
 
