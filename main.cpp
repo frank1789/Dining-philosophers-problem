@@ -23,7 +23,7 @@ auto print_status = [](const unsigned int& n, const std::string& message) {
   std::cout << "Philosopher " << n << " " << message << "\n";
 };
 
-void philosopher(int n) {
+void philosopher(unsigned int n) {
   {
     // barrier for wait a go signal
     std::unique_lock<std::mutex> lock(mutex_var);
