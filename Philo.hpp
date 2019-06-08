@@ -16,7 +16,7 @@ enum class action {THINK, EAT, SLEEP};
 class Philosopher
 {
 public:
-    Philosopher();
+    explicit Philosopher();
     //Philosopher activity
     void thinking();
     void eating();
@@ -32,7 +32,7 @@ public:
     void SetRightFork(Fork *fork);
     void ReleaseLeftFork(Fork *fork);
     void ReleaseRightFork(Fork *fork);
-    int  getNumber(int num);
+
 private:
     unsigned int m_num_eat;
     unsigned int m_num_sleep;

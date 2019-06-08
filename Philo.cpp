@@ -37,15 +37,13 @@ void Philosopher::sleeping() {
 
 action Philosopher::GetPhilosopherState() { return m_state; }
 
-int Philosopher::getNumber(int num) { return num; }
-
 void Philosopher::SetLeftFork(Fork *fork) { fork->acquireFork(); }
 
 void Philosopher::SetRightFork(Fork *fork) { fork->acquireFork(); }
 
-void Philosopher::ReleaseLeftFork(Fork *fork) { fork->relaseFork(); }
+void Philosopher::ReleaseLeftFork(Fork *fork) { fork->releaseFork(); }
 
-void Philosopher::ReleaseRightFork(Fork *fork) { fork->relaseFork(); }
+void Philosopher::ReleaseRightFork(Fork *fork) { fork->releaseFork(); }
 
 void Philosopher::setCanEat(Fork *forkSX, Fork *forkDX) {
   if (forkSX->getStateFork() == forkstate::INUSE &&
