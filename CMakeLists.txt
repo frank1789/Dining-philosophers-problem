@@ -17,7 +17,7 @@ if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   target_compile_options(coverage_config INTERFACE
     -O0        # no optimization
     -g         # generate debug info
-    -ftest-coverage -fprofile-arcs --coverage # sets all required flags
+    -ftest-coverage -fprofile-arcs # sets all required flags
   )
   if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
     target_link_options(coverage_config INTERFACE --coverage)
