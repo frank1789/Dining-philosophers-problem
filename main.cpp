@@ -40,21 +40,24 @@ void philosopher(unsigned int n) {
     std::this_thread::sleep_for(duration);
 
     // enter in the critical section
-    mutex_var.lock();
+
     // possible deadlock
     Philosopher[n]->SetLeftFork(forchetta[LEFT_FORK(n)]);
     print_status(n, "acquired the left fork!");
+    mutex_var.lock();
     if (forchetta[RIGHT_FORK(n)]->getStateFork() == forkstate::FREE) {
       print_status(n, "acquired the right fork!");
-      Philosopher[n]->setCanEat(forchetta[LEFT_FORK(n)],
-                                forchetta[RIGHT_FORK(n)]);
-    } else {
-      print_status(n, " waiting for the right fork!\n");
-      Philosopher[n]->ReleaseLeftFork(forchetta[RIGHT_FORK(n)]);
+      if (!Philosopher[n]->getCanEat()){
+          print_status(n, " waiting for the right fork!\n");
+          Philosopher[n]->ReleaseLeftFork(forchetta[RIGHT_FORK(n)]);
+          print_status(n, " then release fork!\n");
+      }
     }
+    mutex_var.unlock();
 
     // eating
     if (Philosopher[n]->getCanEat()) {
+        mutex_var.lock();
       print_status(n, "is EATING");
       std::chrono::milliseconds duration1(1000);
       std::this_thread::sleep_for(duration1);
