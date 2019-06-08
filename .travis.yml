@@ -29,7 +29,7 @@ install:
 - pip install --user cpp-coveralls
 
 script:
-  - CXX=/usr/bin/g++-9 CC=/usr/bin/gcc-9
+  - CXX=/usr/bin/g++-8 CC=/usr/bin/gcc-8
   - mkdir build && cd build
   # init coverage to 0 (optional)
   - lcov --directory . --zerocounters
@@ -38,7 +38,7 @@ script:
   - ./Dining-philosophers
 
 after_success:
-- CXX=/usr/bin/g++-9 CC=/usr/bin/gcc-9
+- CXX=/usr/bin/g++-8 CC=/usr/bin/gcc-8
 # Create lcov report
 # capture coverage info
 - lcov --directory . --capture --output-file coverage.info
