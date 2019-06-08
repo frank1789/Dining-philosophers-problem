@@ -20,7 +20,7 @@ set_target_properties(FORK
     COMPILE_FLAGS "-fpic -g -O0 -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef -ftest-coverage -fprofile-arcs"
     LINK_FLAGS    "-lgcov --coverage"
 )
-add_library(PHILO Philo.cpp Philo.hpp FORK)
+add_library(PHILO Philo.cpp Philo.hpp ${FORK})
 set_target_properties(PHILO
     PROPERTIES
     COMPILE_FLAGS "-fpic -g -O0 -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef -ftest-coverage -fprofile-arcs"
