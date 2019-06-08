@@ -103,9 +103,8 @@ set(SOURCES main.cpp fork.cpp Philo.cpp Philo.hpp)
 
 
 add_executable(${NAME_PROJECT} ${SOURCES})
-target_link_libraries (${NAME_PROJECT} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries (${NAME_PROJECT} ${CMAKE_THREAD_LIBS_INIT} PUBLIC coverage_config)
 target_compile_options(${NAME_PROJECT} PUBLIC -fpic -g -O0 -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
-target_link_libraries(${NAME_PROJECT} PUBLIC coverage_config)
 # set_target_properties(${NAME_PROJECT}
 #     PROPERTIES
 #     COMPILE_FLAGS "-ftest-coverage -fprofile-arcs"
