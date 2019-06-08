@@ -8,13 +8,16 @@
 #include "Philo.hpp"
 #include "fork.hpp"
 
-using namespace std ;
+std::mutex mutex_var;
+std::condition_variable cond_var;
 
-#define N_PHILOSOPHES 5
-#define LEFT_FORK(N)  (N)
-#define RIGHT_FORK(N) (((N)+1) % N_PHILOSOPHES )
+constexpr unsigned int N_PHILOSOPHES = 5;
+constexpr unsigned int LEFT_FORK(unsigned int N) { return N; }
+constexpr unsigned int RIGHT_FORK(unsigned int N) {
+  return ((N + 1) % N_PHILOSOPHES);
+}
 
-std::mutex                  mutex_var ;
+auto print_status = [](const unsigned int &n, const std::string &message) {
 std::condition_variable     cond_var ;
 
 Philosopher*    Philosopher[N_PHILOSOPHES]{nullptr};
@@ -24,16 +27,16 @@ void philosopher( int n )
 {
     {
         //barrier for wait a go signal
-        std::unique_lock<std::mutex> lock(mutex_var) ;
+    print_status(n, "is waiting to start");
         cout << "Philosopher "<<Philosopher[n]->getNumber(n)<< " is waiting to start\n" ;
         cond_var.wait(lock);
-        cout << "Philosopher "<< Philosopher[n]->getNumber(n) << " is started\n" ;
+    print_status(n, "is started");
     }
     
     while ( true ) { //infinity loop
         //thinking
         Philosopher[n]->thinking();
-        cout << "Philosopher " << Philosopher[n]->getNumber(n) << " is THINKING\n" ;
+    print_status(n, "is THINKING");
         std::chrono::milliseconds duration(500);
         std::this_thread::sleep_for(duration);
         
@@ -41,13 +44,13 @@ void philosopher( int n )
         mutex_var.lock();
         // possible deadlock
         Philosopher[n]->SetLeftFork(forchetta[LEFT_FORK(n)]);
-        cout << "Philosopher " << Philosopher[n]->getNumber(n) << " acquired the left fork!\n" ;
+    print_status(n, "acquired the left fork!");
         if (forchetta[RIGHT_FORK(n)]->getStateFork() == FREE)
         {
-            Philosopher[n]->SetRightFork(forchetta[RIGHT_FORK(n)]);
+      print_status(n, "acquired the right fork!");
             cout << "Philosopher " << Philosopher[n]->getNumber(n) << " acquired the right fork!\n" ;
             Philosopher[n]->setCanEat(forchetta[LEFT_FORK(n)], forchetta[RIGHT_FORK(n)]);
-        }
+      print_status(n, "waiting for the right fork!");
         else
         {
             cout << "Philosopher " << Philosopher[n]->getNumber(n) << " waiting for the right fork!\n" ;
@@ -57,15 +60,15 @@ void philosopher( int n )
         // eating
         if(Philosopher[n]->getCanEat())
         {
-            Philosopher[n]->eating();
+      print_status(n, "is Eating");
             cout << "Philosopher " << Philosopher[n]->getNumber(n) << " is EATING\n" ;
             std::chrono::milliseconds duration1( 1000 );
             std::this_thread::sleep_for( duration1 );
             // enter in the critical section
             Philosopher[n]->ReleaseLeftFork(forchetta[LEFT_FORK(n)]);
-            cout << "Philosopher " << n << " drop the right fork!\n" ;
+      print_status(n, "drop the right fork!");
             Philosopher[n]->ReleaseRightFork(forchetta[RIGHT_FORK(n)]);
-            cout << "Philosopher " << n << " drop the left fork!\n" ;
+      print_status(n, "drop the left fork!");
             mutex_var.unlock() ; // exit from the critical section
         }
     
@@ -100,8 +103,8 @@ void monitor()
         }
         
         //Print the number philosophes eat
-        cout << endl;
-        cout << "Time Eat:      ";
+  std::vector<Philosopher> vec_philosopher(N_PHILOSOPHES, Philosopher());
+  std::vector<Fork> vec_fork (N_PHILOSOPHES - 1, Fork());
         for (int i = 0; i < N_PHILOSOPHES; ++i) {
             cout << Philosopher[i]->getEat() << " ";
         }
@@ -130,7 +133,7 @@ int main( int argc, char *argv[] )
     }
 
     // create threads for philosophes
-    for(long i = 0 ; i < N_PHILOSOPHES ; ++i )
+  for (unsigned int i = 0; i < N_PHILOSOPHES; ++i) {
     {
         cout << "Create the philosopher " << i << "\n" ;
         std::thread(philosopher, i).detach() ;
