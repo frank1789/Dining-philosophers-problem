@@ -103,7 +103,7 @@ set(SOURCES main.cpp fork.cpp Philo.cpp Philo.hpp)
 
 
 add_executable(${NAME_PROJECT} ${SOURCES})
-target_link_libraries (${NAME_PROJECT} ${CMAKE_THREAD_LIBS_INIT} PUBLIC coverage_config)
+target_link_libraries (${NAME_PROJECT} ${CMAKE_THREAD_LIBS_INIT} ${coverage_config})
 target_compile_options(${NAME_PROJECT} PUBLIC -fpic -g -O0 -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
 # set_target_properties(${NAME_PROJECT}
 #     PROPERTIES
