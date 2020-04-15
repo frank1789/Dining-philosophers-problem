@@ -16,7 +16,8 @@ enum class action {THINK, EAT, SLEEP};
 class Philosopher
 {
 public:
-    explicit Philosopher();
+    Philosopher();
+    ~Philosopher() {}
     //Philosopher activity
     void thinking();
     void eating();

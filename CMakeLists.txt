@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.10)
 project(Dining-philosophers LANGUAGES CXX)
 set(NAME_PROJECT "Dining-philosophers")
 set(CMAKE_VERBOSE_MAKEFILE ON)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -26,6 +26,7 @@ if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   endif()
 endif()
 
+set(CMAKE_CXX_FLAGS_RELEASE "-02 -march=native -pthread")
 
 # if(CMAKE_BUILD_TYPE STREQUAL "coverage" OR CODE_COVERAGE)
 #     if("${CMAKE_C_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
@@ -61,50 +62,26 @@ endif()
 #     endif()
 # endif()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # sources file
 set(SOURCES main.cpp fork.cpp Philo.cpp Philo.hpp)
-# add_library(FORK fork.cpp fork.hpp)
-# set_target_properties(FORK
-#     PROPERTIES
-#     COMPILE_FLAGS "-fpic -g -O0 -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef -ftest-coverage -fprofile-arcs"
-#     LINK_FLAGS    "-lgcov --coverage"
-# )
-# add_library(PHILO Philo.cpp Philo.hpp ${FORK})
-# set_target_properties(PHILO
-#     PROPERTIES
-#     COMPILE_FLAGS "-fpic -g -O0 -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef -ftest-coverage -fprofile-arcs"
-#     LINK_FLAGS    "-lgcov --coverage"
-# )
+
 
 
 add_executable(${NAME_PROJECT} ${SOURCES})
 target_link_libraries (${NAME_PROJECT} ${CMAKE_THREAD_LIBS_INIT} coverage_config)
-target_compile_options(${NAME_PROJECT} PUBLIC -fpic -g -O0 -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
-# set_target_properties(${NAME_PROJECT}
-#     PROPERTIES
-#     COMPILE_FLAGS "-ftest-coverage -fprofile-arcs"
-#     LINK_FLAGS    "-lgcov --coverage"
-# )
+target_compile_options(${NAME_PROJECT} PUBLIC 
+	-fpic 
+	-Wall 
+	-Werror 
+	-Wextra 
+	-Wpedantic 
+	-Wconversion 
+	-Wswitch-default 
+	-Wswitch-enum 
+	-Wunreachable-code 
+	-Wwrite-strings 
+	-Wcast-align 
+	-Wshadow 
+	-Wundef
+)
+
