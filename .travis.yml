@@ -2,8 +2,10 @@ dist: bionic
 sudo: false
 language: cpp 
 compiler:
-  - clang
   - gcc
+
+git:
+  depth: 3
 
 apt: true
 pip: true
