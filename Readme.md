@@ -1,5 +1,6 @@
-[![Build Status](https://img.shields.io/travis/com/frank1789/Dining-philosophers-problem.svg?style=flat-square)](https://travis-ci.com/frank1789/Dining-philosophers-problem.svg?branch=master)
+[![Build Status](https://travis-ci.com/frank1789/Dining-philosophers-problem.svg?branch=master)](https://travis-ci.com/frank1789/Dining-philosophers-problem)
 [![Coverage Status](https://img.shields.io/coveralls/github/frank1789/Dining-philosophers-problem.svg?style=flat-square)](https://coveralls.io/github/frank1789/Dining-philosophers-problem)
+
 # Dining-philosophers-problem
 
 Refer link for problem of [Dining-philosophers-problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem)
@@ -10,13 +11,19 @@ The problem was designed to illustrate the challenges of avoiding deadlock, a
 system state in which no progress is possible. To see that a proper solution
 o this problem is not obvious, consider a proposal in which each philosopher
 is instructed to behave as follows:
+-   think until the left fork is available; 
+- when it is, pick it up;
+think until the right fork is available; 
+- when it is, pick it up;
 
-think until the left fork is available; when it is, pick it up;
-think until the right fork is available; when it is, pick it up;
-when both forks are held, eat for a fixed amount of time;
-then, put the right fork down;
-then, put the left fork down;
-repeat from the beginning.
+- when both forks are held, eat for a fixed amount of time;
+
+- then, put the right fork down;
+
+- then, put the left fork down;
+
+- repeat from the beginning.
+
 This attempted solution fails because it allows the system to reach a deadlock
 state, in which no progress is possible. This is a state in which each
 philosopher has picked up the fork to the left, and is waiting for the fork to
