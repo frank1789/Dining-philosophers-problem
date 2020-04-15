@@ -1,4 +1,4 @@
-[![Build Status](https://img.shields.io/travis/com/frank1789/Dining-philosophers-problem.svg?style=flat-square)](https://travis-ci.com/frank1789/Dining-philosophers-problem)
+[![Build Status](https://img.shields.io/travis/com/frank1789/Dining-philosophers-problem.svg?style=flat-square)](https://travis-ci.com/frank1789/Dining-philosophers-problem.svg?branch=master)
 [![Coverage Status](https://img.shields.io/coveralls/github/frank1789/Dining-philosophers-problem.svg?style=flat-square)](https://coveralls.io/github/frank1789/Dining-philosophers-problem)
 # Dining-philosophers-problem
 
